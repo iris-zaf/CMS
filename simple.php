@@ -60,15 +60,39 @@
         </div>
     </nav>
     <div style="height:10px; background-color:#27aae1;"></div>
+    <!-- header -->
+    <header class="bg-dark text-white ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><i class="fas fa-text-height" style="color:#27aae1;"></i> Basic</h1>
+                </div>
+            </div>
 
+        </div>
+    </header>
+    <br>
+    <!-- footer -->
+    <footer class="bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col"> not necessary since i have the class in the p tag-->
+                <p class="lead text-center">Theme By | Iris Kalogirou | <span id="year"></span></p>
+            </div>
+            <!-- </div> -->
+        </div>
 
-
+    </footer>
 
     <script src="https://kit.fontawesome.com/e3a678f973.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+    $('#year').text(new Date().getFullYear());
+    </script>
 </body>
 
 </html>
