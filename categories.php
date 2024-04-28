@@ -24,16 +24,17 @@ elseif(strlen(trim($Category))>49){
     Redirect_to("categories.php");
 }else{
     //Query to insert category in DB
-    $sql= "INSERT INTO category(title,author,datetime)";
+    $sql= "INSERT INTO categories(title,author,datetime)";
     $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
     $stmt = $ConnectingDB->prepare($sql);
+
     $stmt->bindValue(':categoryName',$Category);
     $stmt->bindValue(':adminName',$Admin);
     $stmt->bindValue(':dateTime',$DateTime); 
     $Execute=$stmt->execute();
     if ($Execute) {
     $_SESSION["SuccessMessage"]= "Category Added Successfully";
-    Redirect_to("categories.php");
+    Redirect_to("index.php");
      } else {
         $_SESSION["ErrorMessage"]= "Something went wrong while adding the Category Try Again Later
         or Contact Support team for further assistance.";
