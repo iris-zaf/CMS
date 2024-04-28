@@ -25,7 +25,7 @@ elseif(strlen(trim($Category))>49){
 }else{
     //Query to insert category in DB
     $sql= "INSERT INTO category(title,author,datetime)";
-    $sql .= " VALUES(:categoryName,:adminName,:dateTime)";
+    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
     $stmt = $ConnectingDB->prepare($sql);
     $stmt->bindValue(':categoryName',$Category);
     $stmt->bindValue(':adminName',$Admin);
