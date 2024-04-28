@@ -1,16 +1,16 @@
 <?php
 require_once("./resources/config.php");
-require_once("Includes/DB.php");
-require_once("Includes/Function.php");
-require_once("Includes/Session.php");
-?>
-<?php
+require_once("./Includes/Function.php");
+require_once("./Includes/Session.php");
+require_once("./Includes/DB.php");
+
 if(isset($_POST["Submit"])){
 $Category= $_POST["CategoryTitle"];
 $Admin ="Iris";
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
-echo $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
+$DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
+
 if(empty($Category)){
     $_SESSION["ErrorMessage"]= "Please Enter Category Title";
     Redirect_to("categories.php");
@@ -23,10 +23,27 @@ elseif(strlen(trim($Category))>49){
     $_SESSION["ErrorMessage"]= "Category title should be less than 50 characters";
     Redirect_to("categories.php");
 }else{
-    //Query to insert category in DB 
+    //Query to insert category in DB
+    $sql= "INSERT INTO category(title,author,datetime)";
+    $sql .= " VALUES(:categoryName,:adminName,:dateTime)";
+    $stmt = $ConnectingDB->prepare($sql);
+    $stmt->bindValue(':categoryName',$Category);
+    $stmt->bindValue(':adminName',$Admin);
+    $stmt->bindValue(':dateTime',$DateTime); 
+    $Execute=$stmt->execute();
+    if ($Execute) {
+    $_SESSION["SuccessMessage"]= "Category Added Successfully";
+    Redirect_to("categories.php");
+     } else {
+        $_SESSION["ErrorMessage"]= "Something went wrong while adding the Category Try Again Later
+        or Contact Support team for further assistance.";
+        Redirect_to("categories.php");
+
+     }
+    
+    }
 }
 
-}
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
