@@ -1,5 +1,32 @@
 <?php
-require_once("./resources/config.php")
+require_once("./resources/config.php");
+require_once("Includes/DB.php");
+require_once("Includes/Function.php");
+require_once("Includes/Session.php");
+?>
+<?php
+if(isset($_POST["Submit"])){
+$Category= $_POST["CategoryTitle"];
+$Admin ="Iris";
+date_default_timezone_set("Europe/Athens");
+$CurrentTime=time();
+echo $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
+if(empty($Category)){
+    $_SESSION["ErrorMessage"]= "Please Enter Category Title";
+    Redirect_to("categories.php");
+
+}elseif(strlen(trim($Category))<3){
+    $_SESSION["ErrorMessage"]= "Category title should be at least 3 characters";
+    Redirect_to("categories.php");
+}
+elseif(strlen(trim($Category))>49){
+    $_SESSION["ErrorMessage"]= "Category title should be less than 50 characters";
+    Redirect_to("categories.php");
+}else{
+    //Query to insert category in DB 
+}
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -27,6 +54,10 @@ require_once(TEMPLATES_PATH . "/navbar.php")
     <section class="container py-2 mb-4">
         <div class="row">
             <div class="col-lg-10 offset-lg-1" style="min-height:400px;">
+                <?php
+            echo ErrorMessage();
+            echo SuccessMessage();
+            ?>
                 <form class="p-4" action="Categories.php" method="post">
                     <div class="card bg-secondary text-light mb-3">
                         <div class="card-header">
@@ -36,7 +67,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                             <div class="form-group">
                                 <label for="title" class="form-label"><span class="FieldInfo">Category Title:
                                     </span></label>
-                                <input class="form-control" type="text" name="Title" id="title"
+                                <input class="form-control" type="text" name="CategoryTitle" id="title"
                                     placeholder="Type Title here" value="" </div>
                             </div>
                             <div class="row">
@@ -46,7 +77,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                                         To DashBoard</a>
                                 </div>
                                 <div class="col-lg-6 mt-2 ">
-                                    <button type="button" name="Submit" class="btn btn-success btn-block"><i
+                                    <button type="submit" name="Submit" class="btn btn-success btn-block"><i
                                             class="fas fa-check"></i> Publish</button>
                                 </div>
                             </div>
