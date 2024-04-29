@@ -39,6 +39,7 @@ elseif(strlen(trim($PostText))>999){
     $stmt->bindValue(':imageName',$Image);
     $stmt->bindValue(':postDescription',$PostText);
     $Execute=$stmt->execute();
+    move_uploaded_file($_FILE["image"]["tmp_name"],$Target);
     if ($Execute) {
     $_SESSION["SuccessMessage"]= "Post  added Successfully";
     Redirect_to("addNewPost.php");
