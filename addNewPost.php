@@ -5,40 +5,47 @@ require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 
 if(isset($_POST["Submit"])){
-$Category= $_POST["CategoryTitle"];
+$PostTitle= $_POST["PostTitle"];
+$Category = $_POST["Category"];
+$Image = $_FILES["image"]["name"]; 
+$Target= "Upload/".basename($_FILES["image"]["name"]);  
+$PostText= $_POST["PostDescription"];
 $Admin ="Iris";
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
 $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
 
-if(empty($Category)){
-    $_SESSION["ErrorMessage"]= "Please Enter Category Title";
-    Redirect_to("categories.php");
+if(empty($PostTitle)){
+    $_SESSION["ErrorMessage"]= "Title can not be empty";
+    Redirect_to("addNewPost.php");
 
-}elseif(strlen(trim($Category))<3){
-    $_SESSION["ErrorMessage"]= "Category title should be at least 3 characters";
-    Redirect_to("categories.php");
+}elseif(strlen(trim($PostTitle))<5){
+    $_SESSION["ErrorMessage"]= "Post title should be at least 5 characters";
+    Redirect_to("addNewPost.php");
 }
-elseif(strlen(trim($Category))>49){
-    $_SESSION["ErrorMessage"]= "Category title should be less than 50 characters";
-    Redirect_to("categories.php");
+elseif(strlen(trim($PostText))>999){
+    $_SESSION["ErrorMessage"]= "Post description should be less than 1000 characters";
+    Redirect_to("addNewPost.php");
 }else{
-    //Query to insert category in DB
-    $sql= "INSERT INTO categories(title,author,datetime)";
-    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
-    $stmt = $ConnectingDB->prepare($sql);
-
+    //Query to insert post in DB
+    $sql= "INSERT INTO posts(datetime,title,category,author,image,post)";
+    $sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
+  
+  $stmt = $ConnectingDB->prepare($sql); 
+  $stmt->bindValue(':dateTime',$DateTime);
+  $stmt->bindValue(':postTitle',$PostTitle);
     $stmt->bindValue(':categoryName',$Category);
     $stmt->bindValue(':adminName',$Admin);
-    $stmt->bindValue(':dateTime',$DateTime); 
+    $stmt->bindValue(':imageName',$Image);
+    $stmt->bindValue(':postDescription',$PostText);
     $Execute=$stmt->execute();
     if ($Execute) {
-    $_SESSION["SuccessMessage"]= "Category Added Successfully";
-    Redirect_to("index.php");
+    $_SESSION["SuccessMessage"]= "Post  added Successfully";
+    Redirect_to("addNewPost.php");
      } else {
-        $_SESSION["ErrorMessage"]= "Something went wrong while adding the Category Try Again Later
-        or Contact Support team for further assistance.";
-        Redirect_to("categories.php");
+        $errorInfo = $stmt->errorInfo();
+    $_SESSION["ErrorMessage"]= "SQL Error: " . $errorInfo[2]; // Show the detailed error message
+    Redirect_to("addNewPost.php");
 
      }
     
@@ -75,7 +82,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
             echo ErrorMessage();
             echo SuccessMessage();
             ?>
-                <form class="p-4" action="Categories.php" method="post">
+                <form class="p-4" action="addNewPost.php" method="post" enctype="multipart/form-data">
                     <div class="card bg-secondary text-light mb-3">
                         <div class="card-header">
                             <h1>Add New Post</h1>
