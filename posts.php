@@ -79,6 +79,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                     global $ConnectingDB;
                     $sql= "SELECT * FROM posts";
                     $stmt= $ConnectingDB->query($sql);
+                    $Sr=0;
                     while($DataRows=$stmt->fetch()){
                     $Id = $DataRows["id"];
                     $DateTime = $DataRows["datetime"];
@@ -87,19 +88,28 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                     $Admin = $DataRows["author"];
                     $Image = $DataRows["image"];
                     $PostText = $DataRows["post"];
+                    $Sr++;
                     ?>
-                    <tr>
-                        <td>#</td>
-                        <td><?php echo $PostTitle; ?></td>
-                        <td><?php echo $Category; ?></td>
-                        <td><?php echo $DateTime; ?></td>
-                        <td><?php echo $Admin; ?></td>
-                        <td><?php echo $Image; ?></td>
-                        <td>Comments</td>
-                        <td>Action</td>
-                        <td>Live Preview</td>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $Sr; ?></td>
+                            <td class="table-primary"><?php echo $PostTitle; ?></td>
+                            <td><?php echo $Category; ?></td>
+                            <td><?php echo $DateTime; ?></td>
+                            <td><?php echo $Admin; ?></td>
+                            <td><img src="Upload/<?php echo $Image; ?>" width="170px" height="50px"></td>
+                            <td>Comments</td>
+                            <td>
+                                <a href="#"><span class="btn btn-warning">Edit</span></a>
+                                <a href="#"><span class="btn btn-danger">Delete</span></a>
+                            </td>
+                            <td>
+                                <a href="#"><span class="btn btn-primary">Live Preview</span></a>
 
-                    </tr>
+                            </td>
+
+                        </tr>
+                    </tbody>
                     <?php } ?>
                 </table>
             </div>
