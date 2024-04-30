@@ -101,8 +101,12 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                                 <?php if(strlen($Category)>8){$Category = substr($Category,0,8).'..';}
                             echo $Category; ?></td>
                             <td>
-                                <?php if(strlen($DateTime)>11){$DateTime = substr($DateTime,0,11).'..';}    
-                             echo $DateTime; ?></td>
+                                <!-- alternative way to truncate the text -->
+                                <span class="d-inline-block text-truncate" style="max-width: 100px;">
+                                    <?php echo $DateTime; ?>
+                                </span>
+                            </td>
+
                             <td>
                                 <?php if(strlen($Admin)>20){$Admin = substr($Admin,0,18).'..';}    
                              echo $Admin; ?></td>
