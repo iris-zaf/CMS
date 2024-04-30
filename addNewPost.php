@@ -27,6 +27,7 @@ elseif(strlen(trim($PostText))>999){
     $_SESSION["ErrorMessage"]= "Post description should be less than 1000 characters";
     Redirect_to("addNewPost.php");
 }else{
+    move_uploaded_file($_FILE["image"]["tmp_name"],$Target);
     //Query to insert post in DB
     $sql= "INSERT INTO posts(datetime,title,category,author,image,post)";
     $sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
@@ -39,7 +40,7 @@ elseif(strlen(trim($PostText))>999){
     $stmt->bindValue(':imageName',$Image);
     $stmt->bindValue(':postDescription',$PostText);
     $Execute=$stmt->execute();
-    move_uploaded_file($_FILE["image"]["tmp_name"],$Target);
+    
     if ($Execute) {
     $_SESSION["SuccessMessage"]= "Post  added Successfully";
     Redirect_to("addNewPost.php");

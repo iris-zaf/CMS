@@ -1,5 +1,8 @@
 <?php
-require_once("./resources/config.php")
+require_once("./resources/config.php");
+require_once("./Includes/Function.php");
+require_once("./Includes/Session.php");
+require_once("./Includes/DB.php");
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -66,6 +69,35 @@ require_once("./resources/config.php")
             <div class="col-sm-8"></div>
             <h1>The Complete Responsive CMS Blog</h1>
             <h1 class="lead">The Complete blog using PHP by Iris Kalogirou</h1>
+            <?php
+            global $ConnectingDB;
+            $sql = "SELECT * FROM posts";
+            $stmt= $ConnectingDB->query($sql);
+            while($DataRows=$stmt->fetch()){
+            $PostId= $DataRows["id"];
+            $DateTime= $DataRows['datetime']; 
+            $PostTitle= $DataRows['title'];
+            $Category= $DataRows['category'];
+            $Admin= $DataRows['author'];
+            $Image= $DataRows['image'];
+            $PostDescription= $DataRows['post'];
+            }
+            
+            ?>
+            <div class="card">
+                <img src="Upload/<?php echo $Image; ?>" class="img-fluid card-top" />
+                <div class="card-body">
+                    <h4 class="card-title"><?php  echo $PostTitle; ?></h4>
+                    <small class="text-muted">Written by <?php echo $Admin ?> On <?php echo $DateTime ?></small>
+                    <hr>
+                    <p class="card-text">
+                        <?php echo $PostDescription; ?>
+                    </p>
+
+                </div>
+
+
+            </div>
             <div class=" col-sm-4" style="min-height:40px; background:green;">
             </div>
         </div>
