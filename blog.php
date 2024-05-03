@@ -50,7 +50,7 @@ require_once("./Includes/DB.php");
                     <form class="form-inline my-2 my-lg-4" action="blog.php">
                         <div class="input-group">
                             <input class="form-control" type="text" name="Search" placeholder="Search Here" value="">
-                            <button class="btn btn-primary" name="SearchButton">Go</button>
+                            <button type="submit" class="btn btn-primary" name="SearchButton">Go</button>
 
                         </div>
                     </form>
@@ -72,7 +72,7 @@ require_once("./Includes/DB.php");
             <h1 class="lead">The Complete blog using PHP by Iris Kalogirou</h1>
             <?php 
             global $ConnectingDB;
-               if(isset( $_POST['SearchButton'])){
+               if(isset( $_GET['SearchButton'])){
                  $Search = $_GET["Search"];
                  $sql ="SELECT * FROM posts 
                  WHERE datetime LIKE :search
