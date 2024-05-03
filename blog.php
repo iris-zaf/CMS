@@ -50,7 +50,8 @@ require_once("./Includes/DB.php");
                     <form class="form-inline my-2 my-lg-4" action="blog.php">
                         <div class="input-group">
                             <input class="form-control" type="text" name="Search" placeholder="Search Here" value="">
-                            <button type="button" class="btn btn-primary" name="SearchButton">Go</button>
+                            <button class="btn btn-primary" name="SearchButton">Go</button>
+
                         </div>
                     </form>
                 </ul>
@@ -69,10 +70,24 @@ require_once("./Includes/DB.php");
             <div class="col-sm-8"></div>
             <h1>The Complete Responsive CMS Blog</h1>
             <h1 class="lead">The Complete blog using PHP by Iris Kalogirou</h1>
-            <?php
+            <?php 
             global $ConnectingDB;
-            $sql = "SELECT * FROM posts";
+               if(isset( $_POST['SearchButton'])){
+                 $Search = $_GET["Search"];
+                 $sql ="SELECT * FROM posts 
+                 WHERE datetime LIKE :search
+                 OR title LIKE :search 
+                 OR category LIKE :search 
+                 OR post LIKE :search"; 
+                 $stmt = $ConnectingDB->prepare($sql);
+                 $stmt->bindValue(':search','%'.$Search.'%');
+                 $stmt->execute();      
+               }
+           else{
+            $sql = "SELECT * FROM posts ORDER BY id desc";
             $stmt= $ConnectingDB->query($sql);
+
+           }
             while($DataRows=$stmt->fetch()){
             $PostId= $DataRows["id"];
             $DateTime= $DataRows['datetime']; 
