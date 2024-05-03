@@ -113,7 +113,8 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                             <td><img src="Upload/<?php echo $Image; ?>" width="170px; height=50px"></td>
                             <td>Comments</td>
                             <td>
-                                <a href="#"><span class="btn btn-warning">Edit</span></a>
+                                <a href="EditPost.php?id=<?php echo $Id; ?>"><span
+                                        class="btn btn-warning">Edit</span></a>
                                 <a href="#"><span class="btn btn-danger">Delete</span></a>
                             </td>
                             <td>

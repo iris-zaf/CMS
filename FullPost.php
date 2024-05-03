@@ -70,10 +70,6 @@ require_once("./Includes/DB.php");
             <div class="col-sm-8"></div>
             <h1>The Complete Responsive CMS Blog</h1>
             <h1 class="lead">The Complete blog using PHP by Iris Kalogirou</h1>
-            <?php
-            echo ErrorMessage();
-            echo SuccessMessage();
-            ?>
             <?php 
             global $ConnectingDB;
                if(isset( $_GET['SearchButton'])){
@@ -88,10 +84,15 @@ require_once("./Includes/DB.php");
                  $stmt->execute();      
                }
            else{
-            $sql = "SELECT * FROM posts ORDER BY id desc";
-            $stmt= $ConnectingDB->query($sql);
+            $PostIdURL= $_GET["id"];
+           if(!isset($PostIdURL)){
+            $_SESSION["ErrorMessage"]="Bad Request";
+            Redirect_to("Blog.php");
 
-           }
+           } 
+           $sql = "SELECT * FROM posts WHERE id='$PostIdURL'";
+            $stmt= $ConnectingDB->query($sql);
+        }
             while($DataRows=$stmt->fetch()){
             $PostId= $DataRows["id"];
             $DateTime= $DataRows['datetime']; 
@@ -115,15 +116,9 @@ require_once("./Includes/DB.php");
 
                     <hr>
                     <p class="card-text">
-                        <?php 
-                    if(strlen($PostDescription) > 150){
-                        $PostDescription = substr($PostDescription, 0, 150) . "...";
-                    } 
-                    echo htmlentities($PostDescription);
-                    ?>
+                        <?php echo htmlentities($PostDescription); ?>
                     </p>
-                    <a href="FullPost.php?id=<?php echo $PostId;?>" style="right">
-                        <span class="btn btn-info">Read More >></span></a>
+
                 </div>
 
 
