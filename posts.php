@@ -115,10 +115,13 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                             <td>
                                 <a href="EditPost.php?id=<?php echo $Id; ?>"><span
                                         class="btn btn-warning">Edit</span></a>
-                                <a href="#"><span class="btn btn-danger">Delete</span></a>
+                                <a href="DeletePost.php?id=<?php echo $Id; ?>"><span
+                                        class="btn btn-danger">Delete</span></a>
                             </td>
                             <td>
-                                <a href="#"><span class="btn btn-primary">Live Preview</span></a>
+                                <a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank"><span
+                                        class="btn btn-primary">Live
+                                        Preview</span></a>
 
                             </td>
 
