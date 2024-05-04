@@ -6,47 +6,11 @@ require_once("./Includes/DB.php");
 
 $SearchQueryParameter = $_GET['id'];
 if(isset($_POST["Submit"])){
-$PostTitle= $_POST["PostTitle"];
-$Category = $_POST["Category"];
-$Image = $_FILES["image"]["name"]; 
-$Target= "Upload/".basename($_FILES["image"]["name"]);  
-$PostText= $_POST["PostDescription"];
-$Admin ="Iris";
-date_default_timezone_set("Europe/Athens");
-$CurrentTime=time();
-$DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
-
-if(empty($PostTitle)){
-    $_SESSION["ErrorMessage"]= "Title can not be empty";
-    Redirect_to("posts.php");
-
-}elseif(strlen(trim($PostTitle))<5){
-    $_SESSION["ErrorMessage"]= "Post title should be at least 5 characters";
-    Redirect_to("posts.php");
-}
-elseif(strlen(trim($PostText))>9999){
-    $_SESSION["ErrorMessage"]= "Post description should be less than 1000 characters";
-    Redirect_to("posts.php");
-}else{
-
 global $ConnectingDB;
-if(!empty($Image)) {
-    $sql= "UPDATE  posts 
-            SET title='$PostTitle',category='$Category', image='$Image',post='$PostText' 
-            WHERE id='$SearchQueryParameter'";
-}else{
-    $sql= "UPDATE  posts 
-    SET title='$PostTitle',category='$Category', post='$PostText' 
-    WHERE id='$SearchQueryParameter'"; 
-}
-
-
+$sql= "DELETE FROM posts WHERE id='$SearchQueryParameter'";
     $Execute=$ConnectingDB->query($sql);
-    move_uploaded_file($_FILE["image"]["tmp_name"],$Target);
-  
-    
     if ($Execute) {
-    $_SESSION["SuccessMessage"]= "Post  updated Successfully";
+    $_SESSION["SuccessMessage"]= "Post deleted Successfully";
     Redirect_to("posts.php");
      } else {
         $errorInfo = $stmt->errorInfo();
@@ -56,7 +20,7 @@ if(!empty($Image)) {
      }
     
     }
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -67,7 +31,7 @@ if(!empty($Image)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Edit Post</title>
+    <title>Delete Post</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="public_html/css/styles.css">
@@ -99,17 +63,17 @@ require_once(TEMPLATES_PATH . "/navbar.php")
             }
 
             ?>
-                <form class="p-4" action="EditPost.php?id= <?php echo $SearchQueryParameter; ?>" method="post"
+                <form class="p-4" action="DeletePost.php?id= <?php echo $SearchQueryParameter; ?>" method="post"
                     enctype="multipart/form-data">
                     <div class="card bg-secondary text-light mb-3">
                         <div class="card-header">
-                            <h1>Edit Post</h1>
+                            <h1>Delete Post</h1>
                         </div>
                         <div class="card-body bg-dark">
                             <div class="form-group">
                                 <label for="title" class="form-label"><span class="FieldInfo">Post Title:
                                     </span></label>
-                                <input class="form-control" type="text" name="PostTitle" id="title"
+                                <input disabled class="form-control" type="text" name="PostTitle" id="title"
                                     placeholder="Type Title here" value="<?php echo $TitleUpdate; ?>">
                             </div>
                             <div class="form-group">
@@ -117,24 +81,8 @@ require_once(TEMPLATES_PATH . "/navbar.php")
 
                                 <?php echo $CategoryUpdate;?>
                                 </br>
-                                <label for="CategoryTitle" class="form-label"><span class="FieldInfo">Chose Category:
-                                    </span></label>
-                                <select class="form-control" id="CategoryTitle" name="Category">
-                                    <?php
-                                    //fetch categories from category table
-                                  global $ConnectingDB;
-                                  $sql= "SELECT id,title FROM categories";
-                                  $stmt= $ConnectingDB->query($sql);
-                                  while($DataRows = $stmt->fetch()){
-                                    $Id= $DataRows["id"];
-                                    $CategoryName= $DataRows["title"];
-                                  
-                                  ?>
-                                    <option><?php echo $CategoryName; ?></option>
-                                    <?php } ?>
-                                </select>
                             </div>
-                            <div class="form-group mt-2 mb-1">
+                            <div class="form-group">
                                 <span class="FieldInfo">Existing Image:</span>
 
                                 <img class="mb-1" src="/Upload" <?php echo $ImageUpdate;?> />
@@ -157,9 +105,9 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                                         To DashBoard</a>
                                 </div>
                                 <div class="col-lg-6 mt-2 ">
-                                    <button type="submit" name="Submit" class="btn btn-success btn-block"><i
-                                            class="fas fa-check"></i>
-                                        Publish</button>
+                                    <button type="submit" name="Submit" class="btn btn-danger btn-block"><i
+                                            class="fas fa-trash"></i>
+                                        Delete</button>
                                 </div>
                             </div>
                         </div>
