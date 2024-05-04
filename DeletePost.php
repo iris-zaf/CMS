@@ -5,11 +5,23 @@ require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 
 $SearchQueryParameter = $_GET['id'];
+global $ConnectingDB;
+$sql= "SELECT * FROM posts WHERE id='$SearchQueryParameter'";
+$stmtPost= $ConnectingDB->query($sql);
+while($DataRows=$stmtPost->fetch()){
+    $TitleDeleted = $DataRows['title'];
+    $CategoryDeleted = $DataRows['category'];
+    $ImageDeleted=$DataRows['image'];
+    $PostDeleted=$DataRows['post'];
+
+}
 if(isset($_POST["Submit"])){
 global $ConnectingDB;
 $sql= "DELETE FROM posts WHERE id='$SearchQueryParameter'";
     $Execute=$ConnectingDB->query($sql);
     if ($Execute) {
+        $Target_Path_Delete_Image= "Upload/{$ImageDeleted}";
+        unlink($Target_Path_Delete_Image);
     $_SESSION["SuccessMessage"]= "Post deleted Successfully";
     Redirect_to("posts.php");
      } else {
@@ -51,16 +63,6 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                 <?php
             echo ErrorMessage();
             echo SuccessMessage();
-            global $ConnectingDB;
-            $sql= "SELECT * FROM posts WHERE id='$SearchQueryParameter'";
-            $stmtPost= $ConnectingDB->query($sql);
-            while($DataRows=$stmtPost->fetch()){
-                $TitleUpdate = $DataRows['title'];
-                $CategoryUpdate = $DataRows['category'];
-                $ImageUpdate=$DataRows['image'];
-                $PostUpdate=$DataRows['post'];
-
-            }
 
             ?>
                 <form class="p-4" action="DeletePost.php?id= <?php echo $SearchQueryParameter; ?>" method="post"
@@ -74,28 +76,24 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                                 <label for="title" class="form-label"><span class="FieldInfo">Post Title:
                                     </span></label>
                                 <input disabled class="form-control" type="text" name="PostTitle" id="title"
-                                    placeholder="Type Title here" value="<?php echo $TitleUpdate; ?>">
+                                    placeholder="Type Title here" value="<?php echo $TitleDeleted; ?>">
                             </div>
                             <div class="form-group">
                                 <span class="FieldInfo">Existing Category:</span>
 
-                                <?php echo $CategoryUpdate;?>
+                                <?php echo $CategoryDeleted;?>
                                 </br>
                             </div>
                             <div class="form-group">
                                 <span class="FieldInfo">Existing Image:</span>
 
-                                <img class="mb-1" src="/Upload" <?php echo $ImageUpdate;?> />
-                                </br>
-                                <div class="custom-file">
-                                    <input class="custom-file-input" type="File" name="image" id="ImageSelect" value="">
-                                    <label for="ImageSelect" class="custom-file-label">Select Image:</label>
-                                </div>
+                                <img class="mb-1" src="/Upload" <?php echo $ImageDeleted;?> />
                             </div>
                             <div class="form-group mt-2">
                                 <label for="Post" class="form-label"><span class="FieldInfo">Post:</span>
-                                    <textarea class="form-control" id="Post" name="PostDescription" rows="8" cols="80">
-                                    <?php echo $PostUpdate;?>
+                                    <textarea disabled class="form-control" id="Post" name="PostDescription" rows="8"
+                                        cols="80">
+                                    <?php echo $PostDeleted;?>
                                     </textarea>
                             </div>
                             <div class="row">
