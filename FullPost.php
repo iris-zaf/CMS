@@ -4,6 +4,7 @@ require_once("./Includes/Function.php");
 require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 ?>
+<?php $SearchQueryParameter = $_GET["id"] ?>
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -124,7 +125,41 @@ require_once("./Includes/DB.php");
 
             </div>
             <?php }?>
-
+            <div class="">
+                <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter; ?>" method="post">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="FieldInfo">Share your post about this post</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input class="form-control" type="text" name="CommenterField" value=""
+                                        placeholder="Type your comment here">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <input class="form-control" type="email" name="CommenterMail" value=""
+                                        placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="CommenterThoughts" class="form-control" rows="6" cols="80"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary" id="SubmitButton">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
 
 
