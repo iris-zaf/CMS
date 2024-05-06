@@ -5,40 +5,47 @@ require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 
 if(isset($_POST["Submit"])){
-$Category= $_POST["CategoryTitle"];
-$Admin ="Iris";
+$Username= $_POST["username"];
+$Name= $_POST["name"];
+$Password = $_POST["password"];
+$ConfirmPassword = $_POST["confirmPassword"];
+$Admin='Iris';
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
 $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
 
-if(empty($Category)){
-    $_SESSION["ErrorMessage"]= "Please Enter Category Title";
-    Redirect_to("categories.php");
+if(empty($Username)||empty($Password)||empty($ConfirmPassword)){
+    $_SESSION["ErrorMessage"]= "All fields must be filled out";
+    Redirect_to("admin.php");
 
-}elseif(strlen(trim($Category))<3){
-    $_SESSION["ErrorMessage"]= "Category title should be at least 3 characters";
-    Redirect_to("categories.php");
+}elseif($Password<4){
+    $_SESSION["ErrorMessage"]= "Password title should be at least 4 characters";
+    Redirect_to("admin.php");
 }
-elseif(strlen(trim($Category))>49){
-    $_SESSION["ErrorMessage"]= "Category title should be less than 50 characters";
-    Redirect_to("categories.php");
-}else{
-    //Query to insert category in DB
-    $sql= "INSERT INTO categories(title,author,datetime)";
-    $sql .= "VALUES(:categoryName,:adminName,:dateTime)";
+elseif($Password !== $ConfirmPassword){
+    $_SESSION["ErrorMessage"]= "Passwords should match";
+    Redirect_to("admin.php");
+}elseif(CheckUserExists($Username)){
+    $_SESSION["ErrorMessage"]= "User already exists, try another username";
+    Redirect_to("admin.php");
+}
+else{
+    //Query to insert new admin in DB
+    $sql= "INSERT INTO admins(datetime,username,password,aname,addedby)";
+    $sql .= "VALUES(:dateTime,:userName,:password,:aName,:adminName)";
     $stmt = $ConnectingDB->prepare($sql);
-
-    $stmt->bindValue(':categoryName',$Category);
-    $stmt->bindValue(':adminName',$Admin);
-    $stmt->bindValue(':dateTime',$DateTime); 
+    $stmt->bindValue(':dateTime',$DateTime);
+    $stmt->bindValue(':userName',$Username);
+    $stmt->bindValue(':password',$Password); 
+    $stmt->bindValue(':aName',$Name); 
+    $stmt->bindValue(':adminName',$Admin); 
     $Execute=$stmt->execute();
     if ($Execute) {
-    $_SESSION["SuccessMessage"]= "Category Added Successfully";
-    Redirect_to("index.php");
+    $_SESSION["SuccessMessage"]= "New Admin Added Successfully";
+    Redirect_to("admin.php");
      } else {
-        $_SESSION["ErrorMessage"]= "Something went wrong while adding the Category Try Again Later
-        or Contact Support team for further assistance.";
-        Redirect_to("categories.php");
+        $_SESSION["ErrorMessage"]= "Something went wrong while adding the admin";
+        Redirect_to("admin.php");
 
      }
     
@@ -85,7 +92,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                             <div class="form-group">
                                 <label for="username" class="form-label"><span class="FieldInfo">Username:
                                     </span></label>
-                                <input class="form-control" type="text" name="Username" id="username"
+                                <input class="form-control" type="text" name="username" id="username"
                                     placeholder="Type Username here" value="">
 
                             </div>
@@ -100,7 +107,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                             <div class="form-group">
                                 <label for="password" class="form-label"><span class="FieldInfo">Password:
                                     </span></label>
-                                <input class="form-control" type="password" name="Password" id="password"
+                                <input class="form-control" type="password" name="password" id="password"
                                     placeholder="Type Password here" value="">
                             </div>
 
@@ -108,7 +115,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
                                 <label for="confirmPassword" class="form-label"><span class="FieldInfo">Confirm
                                         Password:
                                     </span></label>
-                                <input class="form-control" type="password" name="ConfirmPassword" id="confirmPassword"
+                                <input class="form-control" type="password" name="confirmPassword" id="confirmPassword"
                                     placeholder="Confirm Password" value="">
                             </div>
                             <div class="row">
