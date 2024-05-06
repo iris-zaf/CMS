@@ -4,7 +4,50 @@ require_once("./Includes/Function.php");
 require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 ?>
-<?php $SearchQueryParameter = $_GET["id"] ?>
+<?php $SearchQueryParameter = $_GET["id"];?>
+<?php
+if(isset($_POST["Submit"])){
+$Name= $_POST["CommenterField"];
+$Email ="CommenterMail";
+$Comment= $_POST["CommenterThoughts"];
+
+date_default_timezone_set("Europe/Athens");
+$CurrentTime=time();
+$DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
+
+if(empty($Name)||empty($Email)||empty($Comment)){
+    $_SESSION["ErrorMessage"]= "All Fields must be filled out";
+    Redirect_to("FullPost.php?id={$SearchQueryParameter}");
+
+}elseif(strlen($Comment)>500){
+    $_SESSION["ErrorMessage"]= "Comment length should be less than 500 characters";
+    Redirect_to("FullPost.php?id={$SearchQueryParameter}");
+}else{
+    //Query to insert category in DB
+    $sql= "INSERT INTO comments(datetime,name,email,comment,approvedby,status,post_id)";
+    $sql .= "VALUES(:dateTime,:name,:email,:comment,'Pending','OFF',:postIdFromUrl)";
+    $stmt = $ConnectingDB->prepare($sql);
+
+    $stmt->bindValue(':dateTime',$DateTime);
+    $stmt->bindValue(':name',$Name);
+    $stmt->bindValue(':email',$Email);
+    $stmt->bindValue(':comment',$Comment);
+    $stmt->bindValue(':postIdFromUrl',$SearchQueryParameter);
+
+    $Execute=$stmt->execute();
+    if ($Execute) {
+    $_SESSION["SuccessMessage"]= "Comment Submitted Successfully";
+    Redirect_to("FullPost.php?id={$SearchQueryParameter}");
+     } else {
+        $_SESSION["ErrorMessage"]= "Something went wrong while adding the Comment";
+        Redirect_to("FullPost.php?id={$SearchQueryParameter}");
+
+     }
+    
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -71,6 +114,10 @@ require_once("./Includes/DB.php");
             <div class="col-sm-8"></div>
             <h1>The Complete Responsive CMS Blog</h1>
             <h1 class="lead">The Complete blog using PHP by Iris Kalogirou</h1>
+            <?php
+            echo ErrorMessage();
+            echo SuccessMessage();
+            ?>
             <?php 
             global $ConnectingDB;
                if(isset( $_GET['SearchButton'])){
@@ -125,7 +172,32 @@ require_once("./Includes/DB.php");
 
             </div>
             <?php }?>
-            <div class="">
+
+            <!-- FETCH EXISTING COMMENTS  -->
+            <div class="container mt-4">
+                <h5 class="mb-3">Comments</h5>
+
+                <?php 
+                global $ConnectingDB;
+                $sql= "SELECT * FROM comments WHERE post_id='$SearchQueryParameter'";
+                $stmt = $ConnectingDB->query($sql);
+                while ($DataRows = $stmt->fetch()){
+                    $CommentDate=$DataRows['datetime'];
+                    $CommentAuthor=$DataRows['name'];
+                    $CommentContent=$DataRows['comment'];
+                ?>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="card-title mb-0"><?php echo $CommentAuthor; ?></h6>
+                        <p class="card-text text-muted small"><?php echo $CommentDate; ?></p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><?php echo $CommentContent; ?></p>
+                    </div>
+                </div>
+                <?php }?>
+            </div>
+            <div>
                 <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter; ?>" method="post">
                     <div class="card mb-3">
                         <div class="card-header">
@@ -154,7 +226,8 @@ require_once("./Includes/DB.php");
                                 <textarea name="CommenterThoughts" class="form-control" rows="6" cols="80"></textarea>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary" id="SubmitButton">Submit</button>
+                                <button type="submit" name="Submit" class="btn btn-primary"
+                                    id="SubmitButton">Submit</button>
                             </div>
                         </div>
                     </div>
