@@ -30,4 +30,12 @@ function Login_Attempt($Username,$Password){
         return null;
     }
 }
+function Confirm_Login(){
+    if(isset($_SESSION["UserID"])){
+        return true;
+    }else{
+       $_SESSION["ErrorMessage"]="Login Required";
+       Redirect_to("Login.php") ;
+    }
+}
 ?>

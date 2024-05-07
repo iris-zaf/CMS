@@ -22,7 +22,7 @@
                     <a href="Categories.php" class="nav-link">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Admins.php" class="nav-link">Manage Admins</a>
+                    <a href="admin.php" class="nav-link">Manage Admins</a>
                 </li>
                 <li class="nav-item">
                     <a href="Comments.php" class="nav-link">Comments</a>

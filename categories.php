@@ -2,8 +2,12 @@
 require_once("./resources/config.php");
 require_once("./Includes/Function.php");
 require_once("./Includes/Session.php");
-require_once("./Includes/DB.php");
+require_once("./Includes/DB.php");?>
+<?php
+$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 
+Confirm_Login();?>
+<?php
 if(isset($_POST["Submit"])){
 $Category= $_POST["CategoryTitle"];
 $Admin =$_SESSION["Username"];

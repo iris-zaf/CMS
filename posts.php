@@ -5,6 +5,10 @@ require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 ?>
 
+<?php 
+$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
+Confirm_Login();?>
+
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -44,7 +48,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
 
                 </div>
                 <div class="col-lg-3 col-md-6 pb-2">
-                    <a href="Admins.php" class="btn btn-warning btn-block">
+                    <a href="admin.php" class="btn btn-warning btn-block">
                         <i class="fas fa-user-plus"></i>Add New Admin</a>
 
                 </div>

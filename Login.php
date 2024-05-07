@@ -5,6 +5,9 @@ require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
 ?>
 <?php
+if(isset($_SESSION["UserID"])){
+    Redirect_to("Dashboard.php");
+}
 if(isset($_POST["Submit"])){
     $Username=$_POST["username"];
     $Password=$_POST["password"];
@@ -19,7 +22,11 @@ if(isset($_POST["Submit"])){
                 $_SESSION["Username"]=$Found_Account["username"];
                 $_SESSION["AdminName"]=$Found_Account["aname"];
                 $_SESSION["SuccessMessage"]="Welcome ". $_SESSION["AdminName"];
-                Redirect_to("Dashboard.php");
+                if(isset($_SESSION["TrackingURL"])){
+                     Redirect_to($_SESSION["TrackingURL"]);
+                }else{
+                    Redirect_to("Dashboard.php");
+                }
             }else{
                 $_SESSION["ErrorMessage"]="Invalid Username or Password";
                 Redirect_to("Login.php");
