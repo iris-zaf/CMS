@@ -10,7 +10,7 @@ $Category = $_POST["Category"];
 $Image = $_FILES["image"]["name"]; 
 $Target= "Upload/".basename($_FILES["image"]["name"]);  
 $PostText= $_POST["PostDescription"];
-$Admin ="Iris";
+$Admin =$_SESSION["Username"];
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
 $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);

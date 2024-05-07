@@ -9,7 +9,7 @@ $Username= $_POST["username"];
 $Name= $_POST["name"];
 $Password = $_POST["password"];
 $ConfirmPassword = $_POST["confirmPassword"];
-$Admin='Iris';
+$Admin=$_SESSION["Username"];
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
 $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);

@@ -1,5 +1,33 @@
 <?php
-require_once("./resources/config.php")
+require_once("./resources/config.php");
+require_once("./Includes/Function.php");
+require_once("./Includes/Session.php");
+require_once("./Includes/DB.php");
+?>
+<?php
+if(isset($_POST["Submit"])){
+    $Username=$_POST["username"];
+    $Password=$_POST["password"];
+    if(empty($Username)||empty($Password)){
+        $_SESSION["ErrorMessage"]="All Fields must be filled out";
+        Redirect_to("Login.php");
+        }else{
+            $Found_Account=Login_Attempt($Username,$Password);
+        
+            if($Found_Account){
+                $_SESSION["UserID"]=$Found_Account["id"];
+                $_SESSION["Username"]=$Found_Account["username"];
+                $_SESSION["AdminName"]=$Found_Account["aname"];
+                $_SESSION["SuccessMessage"]="Welcome ". $_SESSION["AdminName"];
+                Redirect_to("Dashboard.php");
+            }else{
+                $_SESSION["ErrorMessage"]="Invalid Username or Password";
+                Redirect_to("Login.php");
+            }
+        }
+        
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
@@ -36,6 +64,10 @@ require_once("./resources/config.php")
     <section class="container py-2 mb-4">
         <div class="row">
             <div class="offset-sm-3 col-sm-6" style="min-height:500px;">
+                <?php
+            echo ErrorMessage();
+            echo SuccessMessage();
+            ?>
                 <div class="card bg-secondary text-light">
                     <div class="card-header bg-info text-white">
                         <h4>Welcome back!</h4>

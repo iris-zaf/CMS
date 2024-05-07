@@ -6,7 +6,7 @@ require_once("./Includes/DB.php");
 
 if(isset($_POST["Submit"])){
 $Category= $_POST["CategoryTitle"];
-$Admin ="Iris";
+$Admin =$_SESSION["Username"];
 date_default_timezone_set("Europe/Athens");
 $CurrentTime=time();
 $DateTime=strftime("%Y-%m-%H:%M:%S" ,$CurrentTime);
@@ -34,7 +34,7 @@ elseif(strlen(trim($Category))>49){
     $Execute=$stmt->execute();
     if ($Execute) {
     $_SESSION["SuccessMessage"]= "Category Added Successfully";
-    Redirect_to("index.php");
+    Redirect_to("categories.php");
      } else {
         $_SESSION["ErrorMessage"]= "Something went wrong while adding the Category Try Again Later
         or Contact Support team for further assistance.";
