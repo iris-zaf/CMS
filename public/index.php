@@ -19,17 +19,17 @@ require_once(".././resources/config.php")
     <!-- navbar -->
     <div style="height:10px; background-color:#27aae1;"></div>
     <?php
-require_once(TEMPLATES_PATH . "/navbar.php")
+require_once(INCLUDES_PATH . "/navbar.php")
 ?>
     <div style="height:10px; background-color:#27aae1;"></div>
     <!-- header -->
     <?php
-require_once(TEMPLATES_PATH . "/header.php")
+require_once(INCLUDES_PATH . "/header.php")
 ?>
 
     <!-- footer -->
     <?php
-require_once(TEMPLATES_PATH . "/footer.php")
+require_once(INCLUDES_PATH . "/footer.php")
 ?>
 
     <script src="https://kit.fontawesome.com/e3a678f973.js" crossorigin="anonymous"></script>

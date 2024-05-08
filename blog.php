@@ -141,7 +141,7 @@ require_once("./Includes/DB.php");
 
     <!-- footer -->
     <?php
-require_once(TEMPLATES_PATH . "/footer.php")
+require_once(INCLUDES_PATH . "/footer.php")
 ?>
 
     <script src="https://kit.fontawesome.com/e3a678f973.js" crossorigin="anonymous"></script>

@@ -4,9 +4,8 @@ $config=array(
     "resources"=>"../resources",
 )
 );
-defined("TEMPLATES_PATH")
-	or define("TEMPLATES_PATH", realpath(dirname(__FILE__) . '/templates'));
-
+defined("INCLUDES_PATH")
+	or define("INCLUDES_PATH", realpath(dirname(__FILE__) . '/../Includes'));
 
 $host = 'localhost';
 $dbname ='cms';

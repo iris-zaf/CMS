@@ -255,7 +255,7 @@ if(empty($Name)||empty($Email)||empty($Comment)){
 
     <!-- footer -->
     <?php
-require_once(TEMPLATES_PATH . "/footer.php")
+require_once(INCLUDES_PATH . "/footer.php")
 ?>
 
     <script src="https://kit.fontawesome.com/e3a678f973.js" crossorigin="anonymous"></script>

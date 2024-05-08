@@ -53,7 +53,7 @@ $sql= "DELETE FROM posts WHERE id='$SearchQueryParameter'";
     <!-- navbar -->
     <div style="height:10px; background-color:#27aae1;"></div>
     <?php
-require_once(TEMPLATES_PATH . "/navbar.php")
+require_once(INCLUDES_PATH . "/navbar.php")
 ?>
     <div style="height:10px; background-color:#27aae1;"></div>
     <!-- main categories -->
@@ -118,7 +118,7 @@ require_once(TEMPLATES_PATH . "/navbar.php")
 
     <!-- footer -->
     <?php
-require_once(TEMPLATES_PATH . "/footer.php")
+require_once(INCLUDES_PATH . "/footer.php")
 ?>
 
     <script src="https://kit.fontawesome.com/e3a678f973.js" crossorigin="anonymous"></script>
