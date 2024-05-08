@@ -1,5 +1,6 @@
 <?php
 require_once("./resources/config.php");
+
 require_once("./Includes/Function.php");
 require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");
