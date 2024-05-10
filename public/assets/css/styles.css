@@ -6,3 +6,12 @@
 .CommentBlock {
   background-color: #4275dc;
 }
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn i {
+  margin-right: 5px;
+}

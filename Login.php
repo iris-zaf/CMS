@@ -79,7 +79,7 @@ if(isset($_POST["Submit"])){
                     <div class="card-header bg-info text-white">
                         <h4>Welcome back!</h4>
                     </div>
-                    <div class="card-body bg-dark">
+                    <div class="card-body bg-dark" id="login-card">
                         <form class="" action="Login.php" method="post">
                             <div class="form-group">
                                 <label for="username"><span class="FieldInfo">Username:</span></label>

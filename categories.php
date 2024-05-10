@@ -65,7 +65,7 @@ require_once(INCLUDES_PATH . "/navbar.php")
             echo ErrorMessage();
             echo SuccessMessage();
             ?>
-            <form class="p-4" action="Categories.php" method="post">
+            <form class="p-4" action="categories.php" method="post">
                 <div class="card bg-secondary text-light mb-3">
                     <div class="card-header">
                         <h1>Add New Category</h1>

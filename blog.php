@@ -15,7 +15,7 @@ require_once("./Includes/DB.php");
     <title>Blog Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="Css/styles.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
 </head>
 
 <body>
@@ -102,15 +102,15 @@ require_once("./Includes/DB.php");
             $PostDescription= $DataRows['post'];
            
             ?>
-            <div class="card">
+            <div class="col-md-6">
                 <img src="Upload/<?php echo htmlentities($Image); ?>" style="max-height:450px;"
                     class="img-fluid card-img-top" />
-                <div class="card-body">
+                <div class="card-block px-6">
                     <h4 class="card-title"><?php  echo htmlentities($PostTitle); ?></h4>
                     <small class="text-muted">Written by <?php echo htmlentities($Admin); ?> On
                         <?php echo htmlentities($DateTime); ?></small>
                     <span style="float:right;" class="badge bg-dark text-light">
-                        Comments 20
+                        Comments
                     </span>
 
                     <hr>
@@ -128,13 +128,8 @@ require_once("./Includes/DB.php");
 
 
             </div>
+
             <?php }?>
-
-
-
-
-            <div class=" col-sm-4" style="min-height:40px; background:green;">
-            </div>
         </div>
     </div>
 
