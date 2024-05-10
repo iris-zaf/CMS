@@ -102,18 +102,27 @@ require_once("./Includes/DB.php");
             $PostDescription= $DataRows['post'];
            
             ?>
-            <div class="col-md-6">
-                <img src="Upload/<?php echo htmlentities($Image); ?>" style="max-height:450px;"
-                    class="img-fluid card-img-top" />
-                <div class="card-block px-6">
-                    <h4 class="card-title"><?php  echo htmlentities($PostTitle); ?></h4>
-                    <small class="text-muted">Written by <?php echo htmlentities($Admin); ?> On
-                        <?php echo htmlentities($DateTime); ?></small>
-                    <span style="float:right;" class="badge bg-dark text-light">
-                        Comments
-                    </span>
+            <div class="blog-card">
+                <div class="meta">
+                    <div class="photo">
+                        <img src="Upload/<?php echo htmlentities($Image); ?>" style="max-height:450px;"
+                            class="img-fluid card-img-top" />
+                    </div>
+                    <ul class="details">
 
-                    <hr>
+                        <li class="author">
+                            <h4 class="card-title"><?php  echo htmlentities($PostTitle); ?></h4>
+                        </li>
+                        <li class="author"><small>Written by <?php echo htmlentities($Admin); ?>
+                        </li>
+                        <li class="date"><?php echo htmlentities($DateTime); ?></small></li>
+                        <span style="float:right;" class="badge bg-dark text-light">
+                            Comments
+                        </span>
+
+                    </ul>
+                </div>
+                <div class="description">
                     <p class="card-text">
                         <?php 
                     if(strlen($PostDescription) > 150){
@@ -121,14 +130,12 @@ require_once("./Includes/DB.php");
                     } 
                     echo htmlentities($PostDescription);
                     ?>
+                    <p class="read-more">
+                        <a href="FullPost.php?id=<?php echo $PostId;?>">Read More</a>
+
                     </p>
-                    <a href="FullPost.php?id=<?php echo $PostId;?>" style="right">
-                        <span class="btn btn-info">Read More >></span></a>
                 </div>
-
-
             </div>
-
             <?php }?>
         </div>
     </div>
