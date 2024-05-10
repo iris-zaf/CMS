@@ -96,19 +96,6 @@ body {
       margin-right: 10px;
       content: "\f133";
     }
-
-    .tags {
-      ul:before {
-        content: "\f02b";
-        margin-right: 10px;
-      }
-      li {
-        margin-right: 2px;
-        &:first-child {
-          margin-left: -4px;
-        }
-      }
-    }
   }
   .description {
     padding: 1rem;
@@ -135,19 +122,23 @@ body {
       text-align: right;
       a {
         color: #5ad67d;
-
         display: inline-block;
         position: relative;
         &:after {
-          content: "\f061";
-          margin-left: -10px;
-          opacity: 0;
+          content: "";
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 5px solid #5ad67d; /* Arrow color */
+          margin-left: 5px;
           vertical-align: middle;
           transition: margin 0.3s, opacity 0.3s;
         }
 
         &:hover:after {
-          margin-left: 5px;
+          margin-left: 20px;
           opacity: 1;
         }
       }
