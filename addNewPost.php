@@ -1,5 +1,5 @@
 <?php
-require_once("./config.php");
+require_once("./resources/config.php");
 require_once("./Includes/Function.php");
 require_once("./Includes/Session.php");
 require_once("./Includes/DB.php");?>
@@ -31,7 +31,7 @@ elseif(strlen(trim($PostText))>999){
     $_SESSION["ErrorMessage"]= "Post description should be less than 1000 characters";
     Redirect_to("addNewPost.php");
 }else{
-    move_uploaded_file($_FILE["image"]["tmp_name"],$Target);
+    move_uploaded_file($_FILES["image"]["tmp_name"],$Target);
     //Query to insert post in DB
     $sql= "INSERT INTO posts(datetime,title,category,author,image,post)";
     $sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription)";
