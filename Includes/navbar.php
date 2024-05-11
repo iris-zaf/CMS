@@ -23,10 +23,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapseCMS">
 
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success"></i> My
+                        <a href="MyProfile.php" class="nav-link"><i class="fa-solid fa-user text-success me-1"></i> My
                             Profile</a>
                     </li>
                     <li class="nav-item">

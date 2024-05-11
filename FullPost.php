@@ -153,8 +153,7 @@ if(empty($Name)||empty($Email)||empty($Comment)){
            
             ?>
             <div class="card">
-                <img src="Upload/<?php echo htmlentities($Image); ?>" style="max-height:450px;"
-                    class="img-fluid card-img-top" />
+                <img src="Upload/<?php echo htmlentities($Image); ?>" class="img-fluid card-img-top" />
                 <div class="card-body">
                     <h4 class="card-title"><?php  echo htmlentities($PostTitle); ?></h4>
                     <small class="text-muted">Written by <?php echo htmlentities($Admin); ?> On
@@ -195,7 +194,7 @@ if(empty($Name)||empty($Email)||empty($Comment)){
                             <img class="img-fluid" src="public_html/img/user.png" alt="">
                         </div>
                         <div class="col-md-10">
-                            <div class="card-header">
+                            <div class="card-header bg-dark text-white">
 
                                 <h6 class="card-title mb-0"><?php echo $CommentAuthor; ?></h6>
                                 <p class="card-text text-muted small"><?php echo $CommentDate; ?></p>
@@ -208,47 +207,43 @@ if(empty($Name)||empty($Email)||empty($Comment)){
                 </div>
                 <?php }?>
             </div>
-            <div>
+            <div class="container mt-4">
+                <h5 class="mb-3 FieldInfo">Share your thoughts about this post</h5>
+
                 <form class="" action="FullPost.php?id=<?php echo $SearchQueryParameter; ?>" method="post">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="FieldInfo">Share your post about this post</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" name="CommenterField" value=""
-                                        placeholder="Type your comment here">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    </div>
-                                    <input class="form-control" type="email" name="CommenterMail" value=""
-                                        placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="CommenterThoughts" class="form-control" rows="6" cols="80"></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" name="Submit" class="btn btn-primary"
-                                    id="SubmitButton">Submit</button>
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+
+                                <input class="form-control" type="text" name="CommenterField" value=""
+                                    placeholder="Your name">
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+
+                                <input class="form-control" type="email" name="CommenterMail" value=""
+                                    placeholder="Your Email">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea name="CommenterThoughts" class="form-control" rows="6" cols="80"
+                            placeholder="Type your comment here..."></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" name="Submit" class="btn btn-primary" id="SubmitButton">Submit</button>
                     </div>
                 </form>
             </div>
 
-
-
-            <div class=" col-sm-4" style="min-height:40px; background:green;">
-            </div>
         </div>
     </div>
 
