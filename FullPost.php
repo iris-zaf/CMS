@@ -175,7 +175,6 @@ if(empty($Name)||empty($Email)||empty($Comment)){
 
             <!-- FETCH EXISTING COMMENTS  -->
             <div class="container mt-4">
-                <h5 class="mb-3 FieldInfo">Comments</h5>
 
                 <?php 
                 global $ConnectingDB;

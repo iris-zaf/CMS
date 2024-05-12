@@ -56,39 +56,41 @@ $title='Add New Category';
 require_once(INCLUDES_PATH . "/navbar.php")
 ?>
 <div style="height:10px; background-color:#27aae1;"></div>
-<div class="container"><i class="fas fa-edit"></i>Manage Categories</div>
 <!-- main categories -->
 <section class="container py-2 mb-4">
     <div class="row">
-        <div class="col-lg-10 offset-lg-1" style="min-height:400px;">
+        <div class="col-lg-8 offset-lg-1" style="min-height:400px;">
             <?php
             echo ErrorMessage();
             echo SuccessMessage();
             ?>
             <form class="p-4" action="categories.php" method="post">
-                <div class="card bg-secondary text-light mb-3">
+                <div class="card  text-dark mb-3 glassmorphic-card ">
                     <div class="card-header">
                         <h1>Add New Category</h1>
                     </div>
-                    <div class="card-body bg-dark">
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="title" class="form-label"><span class="FieldInfo">Category Title:
                                 </span></label>
                             <input class="form-control" type="text" name="CategoryTitle" id="title"
-                                placeholder="Type Title here" value="" </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 mt-2">
-                                <a href="Dashboard.php" class="btn btn-warning btn-block"><i
-                                        class="fas fa-arrow-left"></i> Back
-                                    To DashBoard</a>
-                            </div>
-                            <div class="col-lg-6 mt-2 ">
-                                <button type="submit" name="Submit" class="btn btn-success btn-block"><i
-                                        class="fas fa-check"></i> Publish</button>
-                            </div>
+                                placeholder="Type Title here" value="">
                         </div>
                     </div>
+                    <div class="card-footer d-flex justify-content-between flex-wrap">
+
+                        <div class="mt-2">
+                            <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i>
+                                Back
+                                To DashBoard</a>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" name="Submit" class="btn btn-success btn-block"><i
+                                    class="fas fa-plus"></i> Add </button>
+                        </div>
+
+                    </div>
+                </div>
             </form>
         </div>
     </div>
