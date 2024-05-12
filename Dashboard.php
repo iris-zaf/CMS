@@ -100,7 +100,60 @@ require_once(INCLUDES_PATH . "/navbar.php")
         </div>
 
         <!-- right area side -->
-        <div></div>
+        <di class="col-lg-10">
+            <h1>Top Posts</h1>
+            <table class="table table-striped table-hover">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Date&Time</th>
+                        <th>Author</th>
+                        <th>Comments</th>
+                        <th>Details</th>
+
+                    </tr>
+                </thead>
+                <?php
+                $SrNo =0;
+                global $ConnectingDB;
+                $sql = "SELECT * FROM posts ORDER BY id desc LIMIT 0,5";
+                $stmt=$ConnectingDB->query($sql);
+                while($DataRows=$stmt->fetch()){
+                    $PostID=$DataRows['id'];
+                    $DateTime=$DataRows['datetime'];
+                    $Author=$DataRows['author'];
+                    $Title=$DataRows['title'];
+                $SrNo++;
+
+                ?>
+                <tbody>
+                    <tr>
+                        <td><?php echo $SrNo;?></td>
+                        <td><?php echo $Title;?></td>
+                        <td><?php echo $DateTime;?></td>
+                        <td><?php echo $Author;?></td>
+                        <td><span class="badge bg-success">
+                                <?php 
+                                global $ConnectingDB;
+                                $sqlApprove= "SELECT COUNT(*) FROM comments WHERE post_id='$PostID' AND status='ON'";
+                                $stmtApprove =$ConnectingDB->query($sqlApprove);
+                                $RowTotal= $stmtApprove->fetch();
+                                $Total= array_shift($RowTotal);
+                                echo $Total;
+                                ?>
+                            </span>
+                            <span class="badge bg-danger">
+                                00
+                            </span>
+                        </td>
+                        <td><a target="_blank" href="FullPost.php?id=<?php echo $PostID ?>">
+                                <span class="btn btn-info">Preview</span></a></td>
+                    </tr>
+                </tbody>
+                <?php }?>
+            </table>
+    </div>
     </div>
 </section>
 
