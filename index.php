@@ -18,6 +18,7 @@ require_once(INCLUDES_PATH . "/navbar.php")
         <div class="container">
             <h2>Welcome to My Blog</h2>
             <p>Have Fun exploring all the pages 🙆‍♀️</p>
+            <p>Still in production, please be patient while features are being added ✨</p>
             <!-- Add your blog posts here -->
         </div>
     </div>
