@@ -10,7 +10,7 @@ $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 Confirm_Login();?>
 
 <?php
-$title='Add New Category';
+$title='All Blogs';
 require_once(INCLUDES_PATH . "/navbar.php")
 ?>
 <div style="height:10px; background-color:#27aae1;"></div>
