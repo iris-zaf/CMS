@@ -1,6 +1,6 @@
 # CMS
 # Introduction
-Welcome to the Blog Post App! This PHP-based application enables administrators to manage blog posts, approve or disapprove comments, and delete posts as needed. This README file provides an overview of the application's features and instructions for setup.
+Welcome to the Blog Post App! This PHP-based application enables administrators to manage blog posts, approve or disapprove comments, and delete posts as needed.
 
 ## Features
 -Admin Dashboard: Administrators can access a dashboard to manage blog posts and comments.
@@ -15,7 +15,7 @@ git clone <repository_url>
 ## Configuration
 -Configure the database connection settings in the config.php file located in the resources directory. Ensure that the host, database name, username, and password match your MySQL server configuration.
 ## Accessing the Application
--After setting up the database and configuration, you can access the application by navigating to the appropriate URL in your web browser. The login page should appear, where you can log in as an administrator to access the dashboard and start managing blog posts and comments.
+-After setting up the database and configuration, you can access the application by navigating to the appropriate URL in your web browser. The login page should appear, where you can log in as an administrator to access the dashboard and start managing blog posts and comments. To login for the first time as an admin use the username:admin and password:1234.
 ### Support
 If you encounter any issues or have questions about using the Blog Post App, please reach out to the project maintainers for assistance.
 
