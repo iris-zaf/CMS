@@ -25,7 +25,7 @@ $sql= "DELETE FROM posts WHERE id='$SearchQueryParameter'";
     $_SESSION["SuccessMessage"]= "Post deleted Successfully";
     Redirect_to("posts.php");
      } else {
-        $errorInfo = $stmt->errorInfo();
+        $errorInfo = $ConnectingDB->errorInfo();
     $_SESSION["ErrorMessage"]= "SQL Error: " . $errorInfo[2]; // Show the detailed error message
     Redirect_to("posts.php");
 
