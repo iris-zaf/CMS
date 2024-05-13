@@ -20,6 +20,9 @@
 
 body {
   background: #f1f1f1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* card css */
