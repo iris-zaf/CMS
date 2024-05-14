@@ -11,7 +11,25 @@ Confirm_Login();?>
 
 <?php
 $title='All Blogs';
-require_once(INCLUDES_PATH . "/navbar.php")
+require_once(INCLUDES_PATH . "/navbar.php");
+
+//comments for the pagination logic
+$postsPerPage = 4;
+// Get total number of posts
+$totalPosts = $ConnectingDB->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+
+// Calculate total pages
+$totalPages = ceil($totalPosts / $postsPerPage);
+
+// Current page (default to 1 if not set)
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// Calculate the starting post index for the current page
+$startIndex = ($currentPage - 1) * $postsPerPage;
+
+// Fetch posts for the current page
+$sql = "SELECT * FROM posts ORDER BY id DESC LIMIT $startIndex, $postsPerPage";
+$stmt = $ConnectingDB->query($sql);
 ?>
 <div style="height:10px; background-color:#27aae1;"></div>
 <!-- main categories -->
@@ -31,8 +49,6 @@ require_once(INCLUDES_PATH . "/navbar.php")
                     ?>
             <?php 
                     global $ConnectingDB;
-                    $sql = "SELECT * FROM posts ORDER BY id desc";
-                     $stmt= $ConnectingDB->query($sql);
                     while($DataRows=$stmt->fetch()){
                     $PostId= $DataRows["id"];
                     $DateTime= $DataRows['datetime']; 
@@ -41,11 +57,10 @@ require_once(INCLUDES_PATH . "/navbar.php")
                     $Admin= $DataRows['author'];
                     $Image= $DataRows['image'];
                     $PostDescription= $DataRows['post'];
-                
+
                     ?>
         </div>
         <div class="blog-card">
-
             <div class="meta">
                 <div class="photo">
                     <img src="Upload/<?php echo htmlentities($Image); ?>" style="max-height:450px;"
@@ -78,8 +93,27 @@ require_once(INCLUDES_PATH . "/navbar.php")
 
                 </p>
             </div>
+
+            <?php }?>
+
+
+        </div> <!-- pagination links -->
+
+        <div class="pagination pagination-lg mb-5">
+
+            <?php
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    $activeClass = ($currentPage == $i) ? 'active' : '';
+                ?>
+            <a class="<?php echo $activeClass; ?> page-link"
+                href="blog.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+            <?php
+                }
+                ?>
+
         </div>
-        <?php }?>
+
+
     </div>
 </div>
 
